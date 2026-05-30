@@ -1,0 +1,363 @@
+# provider.yaml — dataset source-of-truth for lancer-cdncheck
+#
+# This file is the authoritative input consumed by the dataset generator
+# (Phase 3/4). It is parsed by `serde_yml` into the following schema:
+#
+#   cdn:   { asn: {<provider>: [..]}, urls: {<provider>: [..]}, cidr: {<provider>: [..]} }
+#   waf:   { asn: {<provider>: [..]}, urls: {<provider>: [..]}, cidr: {<provider>: [..]} }
+#   cloud: { asn: {<provider>: [..]}, urls: {<provider>: [..]}, cidr: {<provider>: [..]} }
+#   common:
+#     fqdn:
+#       <provider>: [ "suffix.example", .. ]
+#
+# Notes:
+#   * `urls` entries are scraped/fetched by the generator and expanded to CIDRs.
+#   * `asn` entries are resolved to prefixes via IPinfo / RIR data by the generator.
+#   * `cidr` entries are static, hand-curated prefixes that ship as-is.
+#   * `common.fqdn` entries are CNAME/SOA suffix signatures matched at runtime.
+#   * Unicode provider keys are quoted to remain valid YAML across parsers.
+#
+# All indentation is 2 spaces. UTF-8. Do not use tabs.
+
+# ---------------------------------------------------------------------------
+# CDN — Content Delivery Networks
+# ---------------------------------------------------------------------------
+cdn:
+  asn:
+    akamai:
+      - "AS20940"
+      - "AS16625"
+      - "AS35994"
+      - "AS17204"
+      - "AS18680"
+      - "AS18717"
+      - "AS20189"
+      - "AS21342"
+      - "AS21357"
+      - "AS21399"
+      - "AS22207"
+      - "AS22452"
+      - "AS23454"
+      - "AS23455"
+      - "AS23903"
+      - "AS24319"
+      - "AS26008"
+      - "AS30675"
+      - "AS31107"
+      - "AS31108"
+      - "AS31109"
+      - "AS31110"
+      - "AS31377"
+      - "AS33047"
+      - "AS33905"
+      - "AS34164"
+      - "AS34850"
+      - "AS35204"
+      - "AS35993"
+      - "AS36183"
+      - "AS39836"
+      - "AS43639"
+      - "AS55409"
+      - "AS55770"
+      - "AS63949"
+      - "AS133103"
+      - "AS393560"
+    leaseweb:
+      - "AS60626"
+    edgio:
+      - "AS22822"
+    lumen:
+      - "AS3356"
+      - "AS209"
+    aryaka:
+      - "AS199340"
+    bunny:
+      - "AS200325"
+    vercel:
+      - "AS17064"
+    netlify:
+      - "AS54113"
+  urls:
+    cloudfront:
+      - "https://d7uri8nf7uskq.cloudfront.net/tools/list-cloudfront-ips"
+    fastly:
+      - "https://api.fastly.com/public-ip-list"
+    gcore:
+      - "https://api.gcore.com/cdn/public-ip-list"
+    google:
+      - "https://www.gstatic.com/ipranges/goog.json"
+    arvancloud:
+      - "https://www.arvancloud.ir/fa/ips.txt"
+    bunny:
+      - "https://bunny.net/api/system/ips"
+    keycdn:
+      - "https://www.keycdn.com/network/ips"
+    cdn77:
+      - "https://www.cdn77.com/network"
+    cachefly:
+      - "https://cachefly.cachefly.net/ips/cdn.txt"
+    gocache:
+      - "https://gocache.com.br/ips"
+    edgeone:
+      - "https://api.edgeone.ai/iplist"
+    huaweicdn:
+      - "https://developer.huaweicloud.com/ip-ranges"
+  cidr:
+    cafe24:
+      - "14.128.128.0/17"
+    lgtelecom:
+      - "180.210.192.0/21"
+      - "203.82.240.0/21"
+    qrator:
+      - "66.110.32.128/30"
+      - "83.234.15.112/30"
+      - "178.248.237.0/24"
+    cdnetworks:
+      - "205.185.216.0/24"
+      - "94.31.27.0/24"
+      - "60.254.128.0/19"
+    kinx:
+      - "115.85.176.0/20"
+      - "211.249.0.0/19"
+    skbroadband:
+      - "1.208.0.0/12"
+      - "27.160.0.0/12"
+    "百度云加速":
+      - "180.97.32.0/24"
+      - "111.206.0.0/19"
+    "腾讯云":
+      - "119.29.29.0/24"
+      - "150.109.0.0/16"
+    "加速乐":
+      - "118.212.0.0/16"
+      - "117.34.0.0/16"
+    "云盾":
+      - "47.74.0.0/15"
+      - "120.55.0.0/16"
+    medianova:
+      - "185.151.30.0/23"
+      - "188.122.0.0/19"
+
+# ---------------------------------------------------------------------------
+# WAF — Web Application Firewalls
+# ---------------------------------------------------------------------------
+waf:
+  asn:
+    akamai:
+      - "AS20940"
+      - "AS16625"
+      - "AS35994"
+      - "AS17204"
+      - "AS18680"
+    sucuri:
+      - "AS30148"
+    reblaze:
+      - "AS35506"
+    f5:
+      - "AS55002"
+    fortinet:
+      - "AS40934"
+    barracuda:
+      - "AS15095"
+  urls:
+    cloudflare:
+      - "https://api.cloudflare.com/client/v4/ips"
+      - "https://ipinfo.io/widget/demo/cloudflare.com?dataset=ranges"
+  cidr:
+    incapsula:
+      - "199.83.128.0/21"
+      - "198.143.32.0/19"
+      - "149.126.72.0/21"
+
+# ---------------------------------------------------------------------------
+# Cloud — Cloud / Hosting providers
+# ---------------------------------------------------------------------------
+cloud:
+  asn:
+    ovh:
+      - "AS16276"
+    hetzner:
+      - "AS24940"
+    ibm:
+      - "AS36351"
+    flyio:
+      - "AS47853"
+    equinix:
+      - "AS22822"
+      - "AS393495"
+    alibaba:
+      - "AS45102"
+      - "AS37963"
+  urls:
+    aws:
+      - "https://ip-ranges.amazonaws.com/ip-ranges.json"
+    google:
+      - "https://www.gstatic.com/ipranges/cloud.json"
+    azure:
+      - "https://www.microsoft.com/en-us/download/confirmation.aspx?id=56519"
+    oracle:
+      - "https://docs.oracle.com/en-us/iaas/tools/public_ip_ranges.json"
+    zscaler:
+      - "https://api.config.zscaler.com/zscaler.net/cenr/json"
+    office365:
+      - "https://endpoints.office.com/endpoints/worldwide?clientrequestid=b10c5ed1-bad1-445f-b386-b919946339a7"
+    digitalocean:
+      - "https://www.digitalocean.com/geo/google.csv"
+    linode:
+      - "https://geoip.linode.com/"
+    vultr:
+      - "https://geofeed.constant.com/?text"
+    heroku:
+      - "https://api.heroku.com/ip-ranges"
+  cidr:
+    gabia:
+      - "211.43.192.0/19"
+      - "182.162.64.0/19"
+    hostway:
+      - "211.219.0.0/17"
+      - "112.175.0.0/16"
+    ktcloud:
+      - "211.249.40.0/21"
+      - "14.63.0.0/16"
+    navercloud:
+      - "223.130.192.0/18"
+      - "125.209.192.0/18"
+    nhncloud:
+      - "133.186.128.0/18"
+      - "175.106.92.0/22"
+
+# ---------------------------------------------------------------------------
+# common.fqdn — CNAME / SOA suffix signatures
+# ---------------------------------------------------------------------------
+common:
+  fqdn:
+    amazon:
+      - "cloudfront.net"
+      - "amazonaws.com"
+    akamai:
+      - "edgekey.net"
+      - "akamaiedge.net"
+      - "akamaitechnologies.com"
+      - "akamaihd.net"
+      - "edgesuite.net"
+    cloudflare:
+      - "cloudflare.com"
+    fastly:
+      - "fastly.net"
+    edgecast:
+      - "edgecastcdn.net"
+    edgio:
+      - "edg.io"
+      - "edgesuite.com"
+      - "lldns.net"
+    incapsula:
+      - "impervadns.net"
+    qrator:
+      - "qrator.net"
+    google:
+      - "googleusercontent.com"
+      - "googlehosted.com"
+    bunny:
+      - "b-cdn.net"
+      - "bunnycdn.net"
+      - "bunny.net"
+    vercel:
+      - "vercel.app"
+      - "vercel-dns.com"
+      - "now.sh"
+    netlify:
+      - "netlify.app"
+      - "netlify.com"
+      - "nlf.fans"
+    render:
+      - "onrender.com"
+      - "render.com"
+    flyio:
+      - "fly.dev"
+      - "fly.io"
+    railway:
+      - "railway.app"
+      - "up.railway.app"
+    heroku:
+      - "herokuapp.com"
+      - "herokudns.com"
+      - "herokussl.com"
+    backblaze:
+      - "backblazeb2.com"
+    wasabi:
+      - "wasabisys.com"
+    edgeone:
+      - "edgeone.app"
+      - "edgeonepre.com"
+    huawei:
+      - "myhwcdn.cn"
+      - "myhwcloud.com"
+      - "dayu.com"
+    github-pages:
+      - "github.io"
+    gitlab-pages:
+      - "gitlab.io"
+    pantheon:
+      - "pantheonsite.io"
+    wpengine:
+      - "wpengine.com"
+      - "wpenginepowered.com"
+    shopify:
+      - "myshopify.com"
+    squarespace:
+      - "squarespace.com"
+    "阿里云 CDN":
+      - "kunlunpi.com"
+      - "alikunlun.com"
+      - "kunlunea.com"
+      - "kunlunca.com"
+      - "yundunwaf3-5.com"
+      - "cdngslb.com"
+      - "alicloudwaf.com"
+    "腾讯云 CDN":
+      - "cdn.dnsv1.com"
+      - "qcloudcjgj.com"
+      - "qcloudwzgj.com"
+      - "qcloudzygj.com"
+      - "qcloudwaf.com"
+      - "cdntip.com"
+      - "dnsv1.com"
+      - "tencdns.net"
+      - "tdnsv5.com"
+    "网宿 CDN":
+      - "wsdvs.com"
+      - "lxdns.com"
+      - "wswebcdn.com"
+      - "wsglb0.com"
+    "加速乐 CDN":
+      - "cname.365cyd.cn"
+      - "cdn.jiashule.com"
+      - "vip.jiasule.org"
+    "又拍云 CDN":
+      - "aicdn.com"
+    "白山云 CDN":
+      - "bsgslb.cn"
+      - "qingcdn.com"
+      - "trpcdn.net"
+      - "bsclink.cn"
+    "云盾 CDN":
+      - "yunduncdn.com"
+    "奇安信网站卫士":
+      - "360wzws.com"
+    "绿盟云 WAF":
+      - "nsfocusglb.com"
+    "华为云 WAF":
+      - "hwwafsec.com"
+    "七牛云":
+      - "qbox.me"
+      - "qiniudns.com"
+      - "qnssl.com"
+      - "clouddn.com"
+    "京东云 CDN":
+      - "jdcdn.com"
+      - "jcloudcs.com"
+      - "jcloud-cdn.com"
+    "帝联 CDN":
+      - "chinanetcenter.com"
+      - "customcdn.cn"
+      - "customcdn.com"

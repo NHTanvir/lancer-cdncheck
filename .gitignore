@@ -1,6 +1,12 @@
 # Local-only blueprint (never push to GitHub)
 plan.md
 
+# Local workflow tooling
+.workflow-*.js
+
+# Local Claude Code config (never push)
+.claude/
+
 # Rust build artifacts
 target/
 build/
